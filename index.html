@@ -4,24 +4,384 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>Scheduled Maintenance</title>
+  <title>Scheduled Maintenance — ECIP</title>
+  <link rel="icon" type="image/png" href="https://intheshop.ethicalcharterprogram.org/assets/ecip-stars.png">
+  <style>
+    @font-face {
+      font-family: 'Raleway';
+      src: url('https://intheshop.ethicalcharterprogram.org/assets/fonts/Raleway-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Raleway';
+      src: url('https://intheshop.ethicalcharterprogram.org/assets/fonts/Raleway-ExtraBold.ttf') format('truetype');
+      font-weight: 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      src: url('https://intheshop.ethicalcharterprogram.org/assets/fonts/OpenSans-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      src: url('https://intheshop.ethicalcharterprogram.org/assets/fonts/OpenSans-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-display: swap;
+    }
+
+    :root {
+      --ecip-cream: #FBFAF6;
+      --ecip-white: #FFFFFF;
+      --ecip-green-50: #EFF6F4;
+      --ecip-green-100: #DBEAE6;
+      --ecip-green-500: #2C7466;
+      --ecip-green-600: #0F4C43;
+      --ecip-green-700: #0C4038;
+      --ecip-gold-50: #FAF6EC;
+      --ecip-gold-200: #E5D3A3;
+      --ecip-gold-600: #9E8641;
+      --ecip-gray-100: #ECEEED;
+      --ecip-gray-200: #DCE0DE;
+      --ecip-gray-300: #C4CAC7;
+      --ecip-gray-500: #6E7A76;
+      --ecip-gray-600: #515B58;
+      --ecip-gray-700: #3A423F;
+    }
+
+    html, body { margin: 0; padding: 0; background: var(--ecip-cream); }
+    *, *::before, *::after { box-sizing: border-box; }
+    a { color: var(--ecip-green-600); }
+    a:hover { color: var(--ecip-green-700); }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: 'Open Sans', system-ui, sans-serif;
+      color: var(--ecip-gray-700);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 32px;
+    }
+    .logo { height: 44px; width: auto; }
+
+    .lang-toggle {
+      display: flex;
+      gap: 4px;
+      background: var(--ecip-gray-100);
+      border-radius: 999px;
+      padding: 4px;
+    }
+    .lang-toggle button {
+      border: none;
+      cursor: pointer;
+      font-family: 'Open Sans', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ecip-gray-600);
+      transition: background 120ms;
+    }
+    .lang-toggle button[aria-pressed="true"] {
+      background: var(--ecip-green-600);
+      color: #FFFFFF;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 24px 24px;
+    }
+
+    .card {
+      max-width: 620px;
+      width: 100%;
+      background: var(--ecip-white);
+      border: 1px solid var(--ecip-gray-200);
+      border-top: 3px solid var(--ecip-green-600);
+      border-radius: 16px;
+      box-shadow: 0 8px 28px rgba(15, 76, 67, 0.08);
+      padding: 32px 48px 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: var(--ecip-green-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .overline {
+      font-family: 'Raleway', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ecip-gold-600);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: 'Raleway', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 40px;
+      line-height: 1.15;
+      color: var(--ecip-green-600);
+      margin: 0 0 12px;
+      text-wrap: balance;
+      max-width: 460px;
+    }
+
+    .lede {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--ecip-gray-500);
+      margin: 0 0 18px;
+      text-wrap: pretty;
+      max-width: 517px;
+    }
+
+    .windows {
+      width: 100%;
+      max-width: 420px;
+      background: var(--ecip-green-50);
+      border: 1px solid var(--ecip-green-100);
+      border-radius: 10px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .windows-title {
+      font-family: 'Raleway', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ecip-green-600);
+      margin-bottom: 10px;
+    }
+    .windows-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14.5px;
+      color: var(--ecip-gray-700);
+    }
+    .windows-rows > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .windows-rows span:first-child { font-weight: 600; }
+
+    .stars-across { width: 142px; height: auto; margin-bottom: 20px; }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: 'Open Sans', system-ui, sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 0 22px;
+      min-height: 44px;
+      border-radius: 10px;
+      transition: background 120ms, border-color 120ms;
+    }
+    .btn-primary {
+      background: var(--ecip-green-600);
+      color: #FFFFFF;
+    }
+    .btn-primary:hover {
+      background: var(--ecip-green-700);
+      color: #FFFFFF;
+    }
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--ecip-green-600);
+      border: 1px solid var(--ecip-gray-300);
+    }
+    .btn-secondary:hover {
+      border-color: var(--ecip-green-500);
+      background: var(--ecip-green-50);
+      color: var(--ecip-green-600);
+    }
+
+    .status-badge {
+      color-scheme: normal;
+      border: none;
+      margin-top: 18px;
+    }
+
+    .eta {
+      margin-top: 26px;
+      font-size: 14px;
+      color: var(--ecip-gray-500);
+      background: var(--ecip-gold-50);
+      border: 1px solid var(--ecip-gold-200);
+      border-radius: 10px;
+      padding: 10px 18px;
+    }
+    .eta[hidden] { display: none; }
+
+    footer {
+      padding: 12px 32px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--ecip-gray-500);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    footer a { font-weight: 600; }
+
+    @media (max-width: 640px) {
+      header { padding: 14px 20px; }
+      .logo { height: 36px; }
+      .card { padding: 28px 24px 24px; }
+      h1 { font-size: 30px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>We'll be back shortly</h1>
-  <p>The Ethical Charter Implementation Program (ECIP) platform is undergoing scheduled maintenance.</p>
+  <header>
+    <img class="logo" src="https://intheshop.ethicalcharterprogram.org/assets/ecip-horizontal.png" alt="ECIP — Ethical Charter Implementation Program">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button id="lang-en" aria-pressed="true" onclick="setLang('en')">EN</button>
+      <button id="lang-es" aria-pressed="false" onclick="setLang('es')">ES</button>
+    </div>
+  </header>
 
-  <p><strong>Downtime windows (Pacific Time):</strong></p>
-  <ul>
-    <li>Saturday, July 18, 2026: 8:00 AM &ndash; 6:00 PM</li>
-    <li>Sunday, July 19, 2026: 8:00 AM &ndash; 6:00 PM</li>
-  </ul>
+  <main>
+    <div class="card">
+      <div class="card-icon">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#0F4C43" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20"></path>
+          <path d="M16 18h-5"></path>
+          <path d="M18 5a1 1 0 0 0-1 1v5.573"></path>
+          <path d="M3 4h8.129a1 1 0 0 1 .99.863L13 11.246"></path>
+          <path d="M4 11V4"></path>
+          <path d="M7 15h.01"></path>
+          <path d="M8 10.1V4"></path>
+          <circle cx="18" cy="18" r="2"></circle>
+          <circle cx="7" cy="15" r="5"></circle>
+        </svg>
+      </div>
+      <div class="overline" data-t="overline">Scheduled maintenance</div>
+      <h1 data-t="heading">Pre-season Overhaul</h1>
+      <p class="lede" data-t="body">Our platform&rsquo;s in the shop for scheduled maintenance. We appreciate your patience — no action is needed on your end.</p>
 
-  <p>We appreciate your patience. No action is needed on your end.</p>
+      <div class="windows">
+        <div class="windows-title" data-t="windowsTitle">Downtime windows (Pacific Time)</div>
+        <div class="windows-rows">
+          <div><span data-t="satLabel">Saturday, July 18, 2026</span><span>8:00 AM &ndash; 6:00 PM</span></div>
+          <div><span data-t="sunLabel">Sunday, July 19, 2026</span><span>8:00 AM &ndash; 6:00 PM</span></div>
+        </div>
+      </div>
 
-  <p><strong>While you wait, you can still visit:</strong></p>
-  <ul>
-    <li><a href="https://equitablefood.org" target="_blank">Equitable Food Initiative</a></li>
-    <li><a href="https://ethicalcharterprogram.org" target="_blank">Ethical Charter Implementation Program (ECIP)</a></li>
-  </ul>
+      <img class="stars-across" src="https://intheshop.ethicalcharterprogram.org/assets/stars-across.png" alt="">
+
+      <div class="actions">
+        <a class="btn btn-primary" href="https://status.ethicalcharterprogram.org">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg>
+          <span data-t="statusLabel">Check system status</span>
+        </a>
+        <a class="btn btn-secondary" href="https://www.ethicalcharterprogram.org">ethicalcharterprogram.org</a>
+        <a class="btn btn-secondary" href="https://equitablefood.org">equitablefood.org</a>
+      </div>
+
+      <iframe class="status-badge" src="https://status.ethicalcharterprogram.org/badge?theme=light" width="250" height="30" frameborder="0" scrolling="no" title="System status"></iframe>
+
+      <div class="eta" id="eta" hidden></div>
+    </div>
+  </main>
+
+  <footer>
+    <div><span data-t="supportLine">Questions? Email us at</span> <a href="mailto:support@equitablefood.org">support@equitablefood.org</a></div>
+    <div data-t="footerLine">Powered by the Equitable Food Initiative</div>
+  </footer>
+
+  <script>
+    // Optional: set to e.g. "Sunday 6:00 PM PT" to show the expected-back banner.
+    var ETA_TEXT = "";
+
+    var I18N = {
+      en: {
+        title: 'Scheduled Maintenance — ECIP',
+        overline: 'Scheduled maintenance',
+        heading: 'Pre-season Overhaul',
+        body: 'Our platform’s in the shop for scheduled maintenance. We appreciate your patience — no action is needed on your end.',
+        statusLabel: 'Check system status',
+        windowsTitle: 'Downtime windows (Pacific Time)',
+        satLabel: 'Saturday, July 18, 2026',
+        sunLabel: 'Sunday, July 19, 2026',
+        supportLine: 'Questions? Email us at',
+        footerLine: 'Powered by the Equitable Food Initiative',
+        etaLine: function (eta) { return 'Expected back: ' + eta; }
+      },
+      es: {
+        title: 'Mantenimiento programado — ECIP',
+        overline: 'Mantenimiento programado',
+        heading: 'Revisión de pretemporada',
+        body: 'Nuestra plataforma está en el taller por mantenimiento programado. Agradecemos su paciencia — no necesita hacer nada de su parte.',
+        statusLabel: 'Ver el estado del sistema',
+        windowsTitle: 'Ventanas de mantenimiento (hora del Pacífico)',
+        satLabel: 'Sábado, 18 de julio de 2026',
+        sunLabel: 'Domingo, 19 de julio de 2026',
+        supportLine: '¿Preguntas? Escríbanos a',
+        footerLine: 'ECIP — Ethical Charter Implementation Program · Impulsado por Equitable Food Initiative',
+        etaLine: function (eta) { return 'Regreso estimado: ' + eta; }
+      }
+    };
+
+    function setLang(lang) {
+      var t = I18N[lang] || I18N.en;
+      document.documentElement.lang = lang;
+      document.title = t.title;
+      document.querySelectorAll('[data-t]').forEach(function (el) {
+        var val = t[el.getAttribute('data-t')];
+        if (typeof val === 'string') el.textContent = val;
+      });
+      var eta = document.getElementById('eta');
+      if (ETA_TEXT) {
+        eta.textContent = t.etaLine(ETA_TEXT);
+        eta.hidden = false;
+      } else {
+        eta.hidden = true;
+      }
+      document.getElementById('lang-en').setAttribute('aria-pressed', String(lang === 'en'));
+      document.getElementById('lang-es').setAttribute('aria-pressed', String(lang === 'es'));
+    }
+
+    setLang(new URLSearchParams(location.search).get('lang') === 'es' ? 'es' : 'en');
+  </script>
 </body>
 </html>

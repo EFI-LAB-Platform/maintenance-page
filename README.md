@@ -42,9 +42,16 @@ Maintenance mode affects the Heroku-hosted apps only; the public marketing sites
 ```bash
 cd maintenance-page
 git pull            # ALWAYS — GitHub commits to this repo itself (e.g. the CNAME file)
-# edit index.html (downtime dates/times live in the <ul> list)
+# edit index.html:
+#   - downtime dates/times: the .windows-rows markup AND the satLabel/sunLabel
+#     strings in the I18N object (both en and es) — keep them in sync
+#   - optional "expected back" banner: set ETA_TEXT in the <script>
 git add index.html && git commit -m "Update downtime window" && git push
 ```
+
+Asset URLs (logo, stars, fonts under `assets/`) are absolute to
+`https://intheshop.ethicalcharterprogram.org` on purpose: Heroku maintenance mode
+serves the HTML under each app's own domain, where relative paths would 404.
 
 Pages rebuilds automatically on push (~40 s). No Heroku change needed — the URL
 stays the same. Verify: `curl -s https://intheshop.ethicalcharterprogram.org/ | grep -i maintenance`.
