@@ -1,7 +1,7 @@
 # EFI Maintenance Page
 
 Static "we'll be back" page shown to users while the EFI prod platform is down for
-scheduled maintenance. Live at **https://intheshop.ethicalcharterprogram.org/index.html**.
+scheduled maintenance. Live at **https://intheshop.efilab.org/index.html**.
 
 ## How it's set up
 
@@ -9,10 +9,10 @@ scheduled maintenance. Live at **https://intheshop.ethicalcharterprogram.org/ind
 |---|---|---|
 | Page content | `index.html` in this repo, `main` branch | this repo |
 | Hosting | GitHub Pages — `main` branch, root, legacy build, HTTPS enforced | repo Settings → Pages |
-| Custom domain | `CNAME` file in repo root (`intheshop.ethicalcharterprogram.org`) — created automatically by Pages, do not delete | this repo |
-| DNS | `CNAME intheshop → efi-lab-platform.github.io` | HostGator cPanel, zone `ethicalcharterprogram.org` (NOT Namecheap — registrar only) |
+| Custom domain | `CNAME` file in repo root (`intheshop.efilab.org`) — created automatically by Pages, do not delete | this repo |
+| DNS | `CNAME intheshop → efi-lab-platform.github.io` | Cloudflare, zone `efilab.org` (Namecheap is registrar only) |
 | TLS | Let's Encrypt, issued and auto-renewed by GitHub Pages | automatic |
-| Heroku wiring | `MAINTENANCE_PAGE_URL=https://intheshop.ethicalcharterprogram.org/index.html` config var on all 3 prod apps | `prod-app-lab-ecip-api`, `-saq`, `-cp` |
+| Heroku wiring | `MAINTENANCE_PAGE_URL=https://intheshop.efilab.org/index.html` config var on all 3 prod apps | `prod-app-lab-ecip-api`, `-saq`, `-cp` |
 
 The fallback URL `https://efi-lab-platform.github.io/maintenance-page/index.html` now
 301-redirects to the custom domain.
@@ -50,11 +50,11 @@ git add index.html && git commit -m "Update downtime window" && git push
 ```
 
 Asset URLs (logo, stars, fonts under `assets/`) are absolute to
-`https://intheshop.ethicalcharterprogram.org` on purpose: Heroku maintenance mode
+`https://intheshop.efilab.org` on purpose: Heroku maintenance mode
 serves the HTML under each app's own domain, where relative paths would 404.
 
 Pages rebuilds automatically on push (~40 s). No Heroku change needed — the URL
-stays the same. Verify: `curl -s https://intheshop.ethicalcharterprogram.org/ | grep -i maintenance`.
+stays the same. Verify: `curl -s https://intheshop.efilab.org/ | grep -i maintenance`.
 
 ## Gotchas
 
@@ -62,7 +62,7 @@ stays the same. Verify: `curl -s https://intheshop.ethicalcharterprogram.org/ | 
   the Pages custom domain. Setting the custom domain first makes the github.io URL
   redirect to a dead hostname.
 - Deleting the `CNAME` file from the repo removes the custom domain.
-- To change the subdomain: add new DNS CNAME in HostGator, then
+- To change the subdomain: add new DNS CNAME in Cloudflare (DNS only, not proxied), then
   `gh api -X PUT repos/EFI-LAB-Platform/maintenance-page/pages -f cname=<new-host>`,
   wait for cert (`--jq '.https_certificate.state'` until `approved`), then
   `gh api -X PUT ... -F https_enforced=true`, then update `MAINTENANCE_PAGE_URL` on
